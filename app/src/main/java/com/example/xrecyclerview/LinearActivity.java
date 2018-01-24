@@ -52,12 +52,16 @@ public class LinearActivity extends AppCompatActivity {
 
         mRecyclerView
                 .getDefaultRefreshHeaderView()
-                .setRefreshTimeVisible(true);
+                .setProgressStyle(ProgressStyle.CustomAnim);
+        mRecyclerView
+                .getDefaultRefreshHeaderView()
+                .setRefreshTimeVisible(false);
         View header = LayoutInflater.from(this).inflate(R.layout.recyclerview_header, (ViewGroup)findViewById(android.R.id.content),false);
         mRecyclerView.addHeaderView(header);
 
         mRecyclerView.getDefaultFootView().setLoadingHint("自定义加载中提示");
         mRecyclerView.getDefaultFootView().setNoMoreHint("自定义加载完毕提示");
+        mRecyclerView.getDefaultFootView().setProgressStyle(ProgressStyle.CustomAnim);
 
         // if you use setFooterView,the default footerView will unUseful
 //        TextView tv = new TextView(this);

@@ -7,14 +7,14 @@
     <RelativeLayout
         android:id="@+id/listview_header_content"
         android:layout_width="fill_parent"
-        android:layout_height="50dp"
-        android:paddingTop="5dip"
+        android:layout_height="80dp"
+        android:paddingTop="10dip"
         >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:minWidth="60dip"
+            android:minWidth="100dip"
             android:layout_centerInParent="true"
             android:gravity="center"
             android:orientation="vertical"
@@ -37,13 +37,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/listview_header_last_time"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/last_refresh_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp" />
+                    android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -59,12 +59,12 @@
 
         <com.jcodecraeer.xrecyclerview.SimpleViewSwitcher
             android:id="@+id/listview_header_progressbar"
-            android:layout_width="23dip"
-            android:layout_height="23dip"
+            android:layout_width="30dip"
+            android:layout_height="30dip"
             android:layout_toLeftOf="@+id/listview_header_text"
             android:layout_centerVertical="true"
             android:layout_marginLeft="40dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
             android:visibility="invisible" />
     </RelativeLayout>
 

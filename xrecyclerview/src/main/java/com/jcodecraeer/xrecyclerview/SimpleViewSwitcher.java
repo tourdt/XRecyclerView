@@ -1,9 +1,11 @@
 package com.jcodecraeer.xrecyclerview;
 
 import android.content.Context;
+import android.graphics.drawable.AnimationDrawable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 /**
  * Created by jianghejie on 15/11/22.
@@ -55,6 +57,25 @@ public class SimpleViewSwitcher extends ViewGroup {
             this.removeViewAt(0);
         }
         this.addView(view,0);
+    }
+
+    public void playAnim(boolean play){
+        try {
+            if (this.getChildCount() <= 0) {
+                return;
+            }
+            View child = this.getChildAt(0);
+            if (child instanceof ImageView) {
+                AnimationDrawable animationDrawable = (AnimationDrawable) ((ImageView) child).getDrawable();
+                if (play) {
+                    animationDrawable.start();
+                } else {
+                    animationDrawable.stop();
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

@@ -67,13 +67,27 @@ public class XRecyclerView extends RecyclerView {
     }
 
     private void init() {
+        initRefreshHeader();
+        initLoadingMoreFooter();
+    }
+
+    protected void initRefreshHeader(){
+        if (mRefreshHeader != null){
+            return;
+        }
         if (pullRefreshEnabled) {
             mRefreshHeader = new ArrowRefreshHeader(getContext());
             mRefreshHeader.setProgressStyle(mRefreshProgressStyle);
         }
-        LoadingMoreFooter footView = new LoadingMoreFooter(getContext());
-        footView.setProgressStyle(mLoadingMoreProgressStyle);
-        mFootView = footView;
+    }
+
+    protected void initLoadingMoreFooter(){
+        if (mFootView == null){
+            LoadingMoreFooter footView = new LoadingMoreFooter(getContext());
+            footView.setProgressStyle(mLoadingMoreProgressStyle);
+            mFootView = footView;
+        }
+
         mFootView.setVisibility(GONE);
     }
 

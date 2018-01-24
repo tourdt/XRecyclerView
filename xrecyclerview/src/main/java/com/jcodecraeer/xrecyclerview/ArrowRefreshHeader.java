@@ -4,6 +4,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -39,7 +40,7 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 	private static final int ROTATE_ANIM_DURATION = 180;
 
 	public int mMeasuredHeight;
-    private AVLoadingIndicatorView progressView;
+    protected AVLoadingIndicatorView progressView;
 
 	public void destroy(){
         mProgressBar = null;
@@ -76,10 +77,13 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
             mHeaderRefreshTimeContainer.setVisibility(show?VISIBLE:GONE);
     }
 
-	private void initView() {
+    protected int getLayoutID(){
+        return R.layout.listview_header;
+    }
+	protected void initView() {
 		// 初始情况，设置下拉刷新view高度为0
 		mContainer = (LinearLayout) LayoutInflater.from(getContext()).inflate(
-				R.layout.listview_header, null);
+				getLayoutID(), null);
 
         mHeaderRefreshTimeContainer
                 = (LinearLayout) mContainer.findViewById(R.id.header_refresh_time_container);
@@ -118,7 +122,18 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
 	}
 
     public void setProgressStyle(int style) {
-        if(style == ProgressStyle.SysProgress){
+        setProgressStyle(style, -1);
+    }
+
+    public void setProgressStyle(int style, @DrawableRes int drawableId){
+        if (style == ProgressStyle.CustomAnim){
+            ImageView imageView = new ImageView(getContext());
+            if (drawableId <= 0){
+                drawableId = R.drawable.progressbar;
+            }
+            imageView.setImageResource(drawableId);
+            mProgressBar.setView(imageView);
+        }else if(style == ProgressStyle.SysProgress){
             if(mProgressBar != null)
                 mProgressBar.setView(new ProgressBar(getContext(), null, android.R.attr.progressBarStyle));
         }else{
@@ -171,9 +186,11 @@ public class ArrowRefreshHeader extends LinearLayout implements BaseRefreshHeade
                 }
                 break;
             case STATE_REFRESHING:
+                mProgressBar.playAnim(true);
                 mStatusTextView.setText(R.string.refreshing);
                 break;
             case STATE_DONE:
+                mProgressBar.playAnim(false);
                 mStatusTextView.setText(R.string.refresh_done);
                 break;
             default:
